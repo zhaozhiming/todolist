@@ -1,3 +1,5 @@
+import {ADD_TODO} from '../constants/ActionTypes';
+
 const initState = {
   todos: [
     {
@@ -9,13 +11,12 @@ const initState = {
 
 export default function todos(state = initState, action) {
   switch (action.type) {
-  case 'ADD_TODO':
-    const result = Object.assign({}, state, {
+  case ADD_TODO:
+    return Object.assign({}, state, {
       todos: [
         ...state.todos,
         {text: action.text, completed: false},
       ]});
-    return result;
   default:
     return state;
   }
