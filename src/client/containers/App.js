@@ -1,13 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as TodoActions from '../actions/todos';
+import Header from '../components/Header';
 
 class App extends Component {
   render() {
-    return <h1>Hello world</h1>;
+    const { actions } = this.props;
+    return (
+      <div>
+        <Header addTodo={actions.addTodo}/>
+      </div>
+    );
   }
 }
+
+App.propTypes = {
+  actions: PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state) {
   return {todos: state.todos};
