@@ -10,7 +10,8 @@ class TodoItem extends Component {
         completed: todo.completed,
       })}>
         <div className="view">
-          <input className="toggle" type="checkbox" onClick={ () => completeTodo(todo.id)} />
+          <input className="toggle" type="checkbox" checked={todo.completed}
+            onClick={ () => completeTodo(todo.id)} />
           <label>{todo.text}</label>
           <button className="destroy" onClick={ () => deleteTodo(todo.id)}></button>
         </div>
