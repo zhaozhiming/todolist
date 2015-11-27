@@ -1,4 +1,4 @@
-import {ADD_TODO, COMPLETE_TODO, DELETE_TODO, COMPLETE_ALL} from '../constants/ActionTypes';
+import {ADD_TODO, COMPLETE_TODO, DELETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED} from '../constants/ActionTypes';
 
 const initState = [
   {
@@ -31,6 +31,8 @@ export default function todos(state = initState, action) {
     state.forEach(todo => allCompleted = allCompleted && todo.completed);
     return state.map(todo =>
       Object.assign({}, todo, { completed: allCompleted ? false : true}));
+  case CLEAR_COMPLETED:
+    return state.filter(todo => todo.completed === false);
   default:
     return state;
   }

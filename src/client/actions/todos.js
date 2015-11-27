@@ -1,4 +1,4 @@
-import {ADD_TODO, COMPLETE_TODO, DELETE_TODO, COMPLETE_ALL} from '../constants/ActionTypes';
+import {ADD_TODO, COMPLETE_TODO, DELETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED} from '../constants/ActionTypes';
 
 export function addTodo(text) {
   return {type: ADD_TODO, text};
@@ -14,4 +14,8 @@ export function deleteTodo(id) {
 
 export function completeAll() {
   return {type: COMPLETE_ALL};
+}
+
+export function clearCompleted() {
+  return {type: CLEAR_COMPLETED};
 }

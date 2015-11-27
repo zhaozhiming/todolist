@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 class Footer extends Component {
   render() {
-    const { todos } = this.props;
+    const { todos, actions } = this.props;
+    const { clearCompleted } = actions;
     return (
       <footer className="footer">
         <span className="todo-count"><strong>{todos.length}</strong> item left</span>
@@ -17,7 +18,7 @@ class Footer extends Component {
             <a href="#/completed">Completed</a>
           </li>
         </ul>
-        <button className="clear-completed">Clear completed</button>
+        <button className="clear-completed" onClick={ () => clearCompleted() }>Clear completed</button>
       </footer>
     );
   }
