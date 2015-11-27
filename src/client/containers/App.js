@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import * as TodoActions from '../actions/todos';
 import Header from '../components/Header';
 import TodoList from '../components/TodoList';
-import Footer from '../components/Footer';
 
 class App extends Component {
   render() {
@@ -13,7 +12,6 @@ class App extends Component {
       <div>
         <Header actions={actions}/>
         <TodoList todos={todos} actions={actions}/>
-        <Footer todos={todos} actions={actions}/>
       </div>
     );
   }
