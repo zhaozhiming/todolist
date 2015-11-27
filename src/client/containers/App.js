@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div>
         <Header addTodo={actions.addTodo}/>
-        <TodoList todos={todos}/>
+        <TodoList todos={todos} actions={actions}/>
       </div>
     );
   }

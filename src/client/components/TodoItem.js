@@ -3,12 +3,15 @@ import classnames from 'classnames';
 
 class TodoItem extends Component {
   render() {
+    const { todo, completeTodo } = this.props;
     return (
       <li className={classnames({
-        completed: this.props.todo.completed,
+        completed: todo.completed,
       })}>
         <div className="view">
-          <label>{this.props.todo.text}</label>
+          <input className="toggle" type="checkbox" onClick={ () => completeTodo(todo.id)} />
+          <label>{todo.text}</label>
+          <button className="destroy" onClick={ () => completeTodo(todo.id)}></button>
         </div>
       </li>
     );
@@ -17,6 +20,7 @@ class TodoItem extends Component {
 
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired,
+  completeTodo: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

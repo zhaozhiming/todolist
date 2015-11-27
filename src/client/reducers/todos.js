@@ -1,9 +1,10 @@
-import {ADD_TODO} from '../constants/ActionTypes';
+import {ADD_TODO, COMPLETE_TODO} from '../constants/ActionTypes';
 
 const initState = [
   {
     text: 'foo bar',
     completed: false,
+    id: 0,
   },
 ];
 
@@ -12,8 +13,17 @@ export default function todos(state = initState, action) {
   case ADD_TODO:
     return [
       ...state,
-      {text: action.text, completed: false},
+      {
+        text: action.text,
+        completed: false,
+        id: new Date().getTime(),
+      },
     ];
+  case COMPLETE_TODO:
+    return state.map(todo =>
+      todo.id === action.id ?
+        Object.assign({}, todo, { completed: !todo.completed }) : todo
+    );
   default:
     return state;
   }

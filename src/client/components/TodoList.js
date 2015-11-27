@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import TodoItem from './TodoItem';
 
 class TodoList extends Component {
+
   render() {
-    const { todos } = this.props;
+    const { todos, actions } = this.props;
     return (
       <section className="main">
         <ul className="todo-list">
-          {todos.map(todo => <TodoItem todo={todo}/>)}
+          {todos.map(todo => <TodoItem key={todo.id} todo={todo} completeTodo={actions.completeTodo} />)}
         </ul>
       </section>
     );
@@ -16,6 +17,7 @@ class TodoList extends Component {
 
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 export default TodoList;
