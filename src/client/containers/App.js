@@ -10,7 +10,7 @@ class App extends Component {
     const { todos, actions } = this.props;
     return (
       <div>
-        <Header addTodo={actions.addTodo}/>
+        <Header actions={actions}/>
         <TodoList todos={todos} actions={actions}/>
       </div>
     );

@@ -9,19 +9,19 @@ class TodoInput extends Component {
     };
   }
 
-  handleSave(e) {
-    const text = e.target.value.trim();
-    if (e.which === 13) {
-      this.props.onSave(text);
-      if (this.props.newTodo) {
-        this.setState({text: ''});
-      }
+  onSave(text) {
+    if (text && text.length !== 0) {
+      this.props.actions.addTodo(text);
     }
   }
 
-  handleBlur(e) {
-    if (!this.props.newTodo) {
-      this.props.onSave(e.target.value.trim());
+  handleSave(e) {
+    const text = e.target.value.trim();
+    if (e.which === 13) {
+      this.onSave(text);
+      if (this.props.newTodo) {
+        this.setState({text: ''});
+      }
     }
   }
 
@@ -41,7 +41,6 @@ class TodoInput extends Component {
         autoFocus="true"
         value={this.state.text}
         onKeyDown={this.handleSave.bind(this)}
-        onBlur={this.handleBlur.bind(this)}
         onChange={this.handleChange.bind(this)}
       />
     );
@@ -53,7 +52,7 @@ TodoInput.propTypes = {
   placeholder: PropTypes.string,
   editing: PropTypes.bool,
   newTodo: PropTypes.bool,
-  onSave: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 export default TodoInput;

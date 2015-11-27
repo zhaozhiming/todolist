@@ -3,7 +3,8 @@ import classnames from 'classnames';
 
 class TodoItem extends Component {
   render() {
-    const { todo, completeTodo } = this.props;
+    const { todo, actions } = this.props;
+    const { completeTodo } = actions;
     return (
       <li className={classnames({
         completed: todo.completed,
@@ -20,7 +21,7 @@ class TodoItem extends Component {
 
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired,
-  completeTodo: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 export default TodoItem;

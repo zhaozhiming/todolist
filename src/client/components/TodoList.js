@@ -8,7 +8,7 @@ class TodoList extends Component {
     return (
       <section className="main">
         <ul className="todo-list">
-          {todos.map(todo => <TodoItem key={todo.id} todo={todo} completeTodo={actions.completeTodo} />)}
+          {todos.map(todo => <TodoItem key={todo.id} todo={todo} actions={actions} />)}
         </ul>
       </section>
     );
