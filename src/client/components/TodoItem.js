@@ -4,7 +4,7 @@ import classnames from 'classnames';
 class TodoItem extends Component {
   render() {
     const { todo, actions } = this.props;
-    const { completeTodo } = actions;
+    const { completeTodo, deleteTodo } = actions;
     return (
       <li className={classnames({
         completed: todo.completed,
@@ -12,7 +12,7 @@ class TodoItem extends Component {
         <div className="view">
           <input className="toggle" type="checkbox" onClick={ () => completeTodo(todo.id)} />
           <label>{todo.text}</label>
-          <button className="destroy" onClick={ () => completeTodo(todo.id)}></button>
+          <button className="destroy" onClick={ () => deleteTodo(todo.id)}></button>
         </div>
       </li>
     );
