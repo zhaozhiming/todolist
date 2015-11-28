@@ -1,26 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import TodoItem from './TodoItem';
 import Footer from './Footer';
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from '../constants/TodoFilter';
+import { SHOW_ALL } from '../constants/TodoFilter';
+
+const FILTER_METHODS = {
+  SHOW_ALL: () => true,
+  SHOW_ACTIVE: todo => !todo.completed,
+  SHOW_COMPLETED: todo => todo.completed,
+};
 
 class TodoList extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = { filter: SHOW_ALL};
-  }
-
-  filterResult() {
-    const {filter} = this.state;
-    switch (filter) {
-    case SHOW_ALL:
-      return () => true;
-    case SHOW_ACTIVE:
-      return todo => !todo.completed;
-    case SHOW_COMPLETED:
-      return todo => todo.completed;
-    default:
-      return () => true;
-    }
   }
 
   handleShow(filter) {
@@ -30,7 +22,8 @@ class TodoList extends Component {
   render() {
     const { todos, actions } = this.props;
     const { completeAll } = actions;
-    const filterMethod = this.filterResult();
+    const {filter} = this.state;
+    const filterMethod = FILTER_METHODS[filter];
 
     const filetredTodos = todos.filter(todo => filterMethod(todo));
     return (
