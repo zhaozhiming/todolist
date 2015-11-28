@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "todolist",
   "scripts": {
-    "test": "no"
+    "start": "node src/server/server.js"
   },
   "keywords": [
     "todo"
