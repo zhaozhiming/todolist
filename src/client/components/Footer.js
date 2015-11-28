@@ -10,10 +10,19 @@ const FILTER_TITLES = {
 
 class Footer extends Component {
 
+  renderFooterButtons(completedCount, clearCompleted) {
+    if (completedCount > 0) {
+      return (
+        <button className="clear-completed" onClick={ () => clearCompleted() }>Clear completed</button>
+      );
+    }
+  }
+
   render() {
     const { todos, actions, onShow } = this.props;
     const { clearCompleted } = actions;
     const activeCount = todos.reduce((count, todo) => todo.completed ? count : count + 1, 0);
+    const completedCount = todos.length - activeCount;
     return (
       <footer className="footer">
         <span className="todo-count"><strong>{activeCount}</strong> item left</span>
@@ -26,7 +35,7 @@ class Footer extends Component {
             </li>
           )}
         </ul>
-        <button className="clear-completed" onClick={ () => clearCompleted() }>Clear completed</button>
+        {this.renderFooterButtons(completedCount, clearCompleted)}
       </footer>
     );
   }
