@@ -12,7 +12,7 @@ class Header extends Component {
     return (
       <header className="header">
         <h1>Todo List</h1>
-        <TodoInput newTodo placeholder="请录入..." onSave={this.handleSave.bind(this)}/>
+        <TodoInput newTodo placeholder="请录入..." onSave={(text) => this.handleSave(text)}/>
       </header>
     );
   }

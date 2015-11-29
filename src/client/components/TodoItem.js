@@ -13,7 +13,12 @@ class TodoItem extends Component {
   }
 
   handleSave(id, text) {
-    this.props.actions.updateTodo(id, text);
+    const { deleteTodo, updateTodo } = this.props.actions;
+    if (text.length === 0) {
+      deleteTodo(id);
+    } else {
+      updateTodo(id, text);
+    }
     this.setState({editing: false});
   }
 
