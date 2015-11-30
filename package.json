@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "todolist",
   "scripts": {
-    "start": "node src/server/server.js"
+    "start": "node src/server/server.js",
+    "precommit": "node_modules/.bin/eslint ."
   },
   "keywords": [
     "todo"
