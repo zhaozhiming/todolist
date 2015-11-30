@@ -19,6 +19,7 @@ app.listen(port, error => {
   if (error) {
     console.error(error);
   } else {
+    // eslint-disable-line no-console
     console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);
   }
 });
