@@ -17,7 +17,7 @@ app.get('/', (req, res) =>
 
 app.listen(port, error => {
   if (error) {
-    console.error(error);
+    console.error(error); // eslint-disable-line no-console
   } else {
     console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port); // eslint-disable-line no-console
   }
