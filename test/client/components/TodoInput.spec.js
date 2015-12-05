@@ -3,7 +3,7 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import TodoInput from '../../../src/client/components/TodoInput';
 
-function setup(givenProps) {
+function setup(givenProps = {}) {
   const props = Object.assign({
     text: 'foo',
     placeholder: 'please input',
