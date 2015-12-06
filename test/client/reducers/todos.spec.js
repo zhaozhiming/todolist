@@ -3,6 +3,12 @@ import todos from '../../../src/client/reducers/todos';
 import { ADD_TODO, COMPLETE_TODO, DELETE_TODO,
   COMPLETE_ALL, CLEAR_COMPLETED, UPDATE_TODO} from '../../../src/client/constants/ActionTypes';
 
+function assertCompleteAll(givenState, expect1Complete, expect2Complete) {
+  const state = todos(givenState, {type: COMPLETE_ALL});
+  expect(state[0].completed).toBe(expect1Complete);
+  expect(state[1].completed).toBe(expect2Complete);
+}
+
 describe('components', () => {
   describe('Header', () => {
     it('should add todo correctly', () => {
@@ -24,12 +30,6 @@ describe('components', () => {
       expect(state.length).toBe(1);
       expect(state[0].id).toBe(1);
     });
-
-    function assertCompleteAll(givenState, expect1Complete, expect2Complete) {
-      const state = todos(givenState, {type: COMPLETE_ALL});
-      expect(state[0].completed).toBe(expect1Complete);
-      expect(state[1].completed).toBe(expect2Complete);
-    }
 
     it('should complete all correctly', () => {
       assertCompleteAll([{id: 0, completed: false}, {id: 1, completed: false}], true, true);
