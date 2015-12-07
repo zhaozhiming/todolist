@@ -8,6 +8,7 @@ function setup(givenTodo) {
   const actions = {
     deleteTodo: expect.createSpy(),
     updateTodo: expect.createSpy(),
+    completeTodo: expect.createSpy(),
   };
 
   const props = {
@@ -26,12 +27,16 @@ function setup(givenTodo) {
   };
 }
 
-function verifySaveTodo(saveText) {
+function doubleClick() {
   const { output, renderer, props } = setup({id: 0, completed: false, text: 'foo'});
   const div = output.props.children;
   const label = div.props.children[1];
   label.props.onDoubleClick();
+  return {props, renderer, output};
+}
 
+function verifySaveTodo(saveText) {
+  const { renderer, props } = doubleClick();
   const update = renderer.getRenderOutput();
   const todoInput = update.props.children;
   todoInput.props.onSave(saveText);
@@ -62,10 +67,13 @@ describe('components', () => {
       expect(button.props.className).toBe('destroy');
     });
 
-    it('should render correctly when editting', () => {
-      const { output, renderer } = setup({completed: false, text: 'foo'});
+    it('should classname have not complete when todo complete is false', () => {
+      const { output } = setup({completed: false, text: 'foo'});
       expect(output.props.className).toBe('');
+    });
 
+    it('should render correctly when editting', () => {
+      const { output, renderer } = doubleClick();
       const div = output.props.children;
       const label = div.props.children[1];
       label.props.onDoubleClick();
@@ -91,6 +99,22 @@ describe('components', () => {
     it('should update todo when editting text change', () => {
       const {props} = verifySaveTodo('bar');
       expect(props.actions.updateTodo).toHaveBeenCalledWith(0, 'bar');
+    });
+
+    it('should complete todo when checkbox click', () => {
+      const { output, props } = setup({id: 0, completed: false, text: 'foo'});
+      const div = output.props.children;
+      const input = div.props.children[0];
+      input.props.onChange();
+      expect(props.actions.completeTodo).toHaveBeenCalledWith(0);
+    });
+
+    it('should delete todo when button click', () => {
+      const { output, props } = setup({id: 0, completed: false, text: 'foo'});
+      const div = output.props.children;
+      const button = div.props.children[2];
+      button.props.onClick();
+      expect(props.actions.deleteTodo).toHaveBeenCalledWith(0);
     });
   });
 });
