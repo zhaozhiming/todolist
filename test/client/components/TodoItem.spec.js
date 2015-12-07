@@ -26,6 +26,18 @@ function setup(givenTodo) {
   };
 }
 
+function verifySaveTodo(saveText) {
+  const { output, renderer, props } = setup({id: 0, completed: false, text: 'foo'});
+  const div = output.props.children;
+  const label = div.props.children[1];
+  label.props.onDoubleClick();
+
+  const update = renderer.getRenderOutput();
+  const todoInput = update.props.children;
+  todoInput.props.onSave(saveText);
+  return {props, renderer, update};
+}
+
 describe('components', () => {
   describe('TodoItem', () => {
     it('should render correctly when no editting', () => {
@@ -55,8 +67,7 @@ describe('components', () => {
       expect(output.props.className).toBe('');
 
       const div = output.props.children;
-      const [ input, label ] = div.props.children;
-      expect(input.type).toBe('input');
+      const label = div.props.children[1];
       label.props.onDoubleClick();
 
       const update = renderer.getRenderOutput();
@@ -66,6 +77,20 @@ describe('components', () => {
       expect(todoInput.props.editing).toBe(true);
       expect(todoInput.props.placeholder).toBe('请录入...');
       expect(todoInput.props.text).toBe('foo');
+    });
+
+    it('should delete todo when editting text is empty', () => {
+      const result = verifySaveTodo('');
+      const {renderer, props} = result;
+      let update = result.update;
+      expect(props.actions.deleteTodo).toHaveBeenCalledWith(0);
+      update = renderer.getRenderOutput();
+      expect(update.props.className).toBe('');
+    });
+
+    it('should update todo when editting text change', () => {
+      const {props} = verifySaveTodo('bar');
+      expect(props.actions.updateTodo).toHaveBeenCalledWith(0, 'bar');
     });
   });
 });
