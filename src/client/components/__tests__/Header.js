@@ -1,12 +1,13 @@
-jest.donMock('../Header');
+jest.dontMock('../Header');
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-const Header = require('../Header');
+
+// import Header from '../Header';
 
 describe('Header', () => {
   it('should render correctly', () => {
-    const header = TestUtils.renderIntoDocument(<Header />);
+    const header = TestUtils.renderIntoDocument(<header />);
     console.log(header);
   });
 });

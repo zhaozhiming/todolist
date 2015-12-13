@@ -31,8 +31,8 @@ class CheckboxWithLabel extends React.Component {
 }
 
 CheckboxWithLabel.propTypes = {
-  labelOn: React.PropTypes.bool,
-  labelOff: React.PropTypes.bool,
+  labelOn: React.PropTypes.string,
+  labelOff: React.PropTypes.string,
 };
 
 module.exports = CheckboxWithLabel;
