@@ -1,4 +1,5 @@
-import expect from 'expect';
+import spy from 'expect';
+import {expect} from 'chai';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import TodoList from '../../../src/client/components/TodoList';
@@ -8,7 +9,7 @@ import {SHOW_ACTIVE, SHOW_COMPLETED} from '../../../src/client/constants/TodoFil
 
 function setup(todos) {
   const actions = {
-    completeAll: expect.createSpy,
+    completeAll: spy.createSpy,
   };
 
   const props = {
@@ -32,29 +33,29 @@ function verifyFilter(givenTodos, filter, expectCount) {
   footer.props.onShow(filter);
   const update = renderer.getRenderOutput();
   const todos = update.props.children[1].props.children;
-  expect(todos.length).toBe(expectCount);
+  expect(todos.length).to.be.equal(expectCount);
 }
 
 describe('components', () => {
   describe('TodoList', () => {
     it('should render correctly', () => {
       const {output} = setup([{id: 0, completed: true}]);
-      expect(output.type).toBe('section');
-      expect(output.props.className).toBe('main');
+      expect(output.type).to.be.equal('section');
+      expect(output.props.className).to.be.equal('main');
 
       const [input, ul, footer] = output.props.children;
-      expect(input.type).toBe('input');
-      expect(input.props.className).toBe('toggle-all');
-      expect(input.props.type).toBe('checkbox');
-      expect(ul.type).toBe('ul');
-      expect(ul.props.className).toBe('todo-list');
-      expect(footer.type).toBe(Footer);
+      expect(input.type).to.be.equal('input');
+      expect(input.props.className).to.be.equal('toggle-all');
+      expect(input.props.type).to.be.equal('checkbox');
+      expect(ul.type).to.be.equal('ul');
+      expect(ul.props.className).to.be.equal('todo-list');
+      expect(footer.type).to.be.equal(Footer);
 
       const todos = ul.props.children;
-      expect(todos.length).toBe(1);
-      expect(todos[0].type).toBe(TodoItem);
-      expect(todos[0].key).toBe('0');
-      expect(todos[0].props.todo.completed).toBe(true);
+      expect(todos.length).to.be.equal(1);
+      expect(todos[0].type).to.be.equal(TodoItem);
+      expect(todos[0].key).to.be.equal('0');
+      expect(todos[0].props.todo.completed).to.be.equal(true);
     });
 
     it('should render correctly when filter completed', () => {
@@ -66,4 +67,3 @@ describe('components', () => {
     });
   });
 });
-

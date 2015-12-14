@@ -1,4 +1,5 @@
-import expect from 'expect';
+import spy from 'expect';
+import {expect} from 'chai';
 import React from 'react' ;
 import TestUtils from 'react-addons-test-utils';
 import Footer from '../../../src/client/components/Footer';
@@ -13,13 +14,13 @@ const FILTER_TITLES = [
 
 function setup(todos, filter) {
   const actions = {
-    clearCompleted: expect.createSpy(),
+    clearCompleted: spy.createSpy(),
   };
 
   const props = {
     todos: todos,
     actions: actions,
-    onShow: expect.createSpy(),
+    onShow: spy.createSpy(),
     filter: filter,
   };
 
@@ -38,43 +39,43 @@ function verifyTab(filter, index) {
   const {output } = setup([{completed: false}], filter);
   const ul = output.props.children[1];
   const active = ul.props.children[index];
-  expect(active.props.children.props.className).toBe('selected');
+  expect(active.props.children.props.className).to.be.equal('selected');
 }
 
 describe('Component', () => {
   describe('Footer', () => {
     it('should render correctly', () => {
       const {output, props} = setup([{completed: false}, {completed: true}], SHOW_ALL);
-      expect(output.type).toBe('footer');
-      expect(output.props.className).toBe('footer');
+      expect(output.type).to.be.equal('footer');
+      expect(output.props.className).to.be.equal('footer');
       const [span, ul, button] = output.props.children;
-      expect(span.type).toBe('span');
-      expect(span.props.className).toBe('todo-count');
+      expect(span.type).to.be.equal('span');
+      expect(span.props.className).to.be.equal('todo-count');
       const [strong, text] = span.props.children;
-      expect(strong.type).toBe('strong');
-      expect(`${strong.props.children}${text}`).toBe('1 item left');
+      expect(strong.type).to.be.equal('strong');
+      expect(`${strong.props.children}${text}`).to.be.equal('1 item left');
 
-      expect(ul.type).toBe('ul');
-      expect(ul.props.className).toBe('filters');
+      expect(ul.type).to.be.equal('ul');
+      expect(ul.props.className).to.be.equal('filters');
 
       ul.props.children.forEach((li, index) => {
-        expect(li.type).toBe('li');
-        expect(li.key).toBe(FILTER_TITLES[index].key);
+        expect(li.type).to.be.equal('li');
+        expect(li.key).to.be.equal(FILTER_TITLES[index].key);
         const a = li.props.children;
-        expect(a.type).toBe('a');
-        expect(a.props.className).toBe(classnames({selected: li.key === props.filter}));
-        expect(a.props.children).toBe(FILTER_TITLES[index].desc);
+        expect(a.type).to.be.equal('a');
+        expect(a.props.className).to.be.equal(classnames({selected: li.key === props.filter}));
+        expect(a.props.children).to.be.equal(FILTER_TITLES[index].desc);
       });
 
-      expect(button.type).toBe('button');
-      expect(button.props.className).toBe('clear-completed');
-      expect(button.props.children).toBe('Clear completed');
+      expect(button.type).to.be.equal('button');
+      expect(button.props.className).to.be.equal('clear-completed');
+      expect(button.props.children).to.be.equal('Clear completed');
     });
 
     it('should have not button when only active todo', () => {
       const {output } = setup([{completed: false}], SHOW_ALL);
       const button = output.props.children[2];
-      expect(button).toBe(undefined);
+      expect(button).to.be.equal(undefined);
     });
 
     it('should show correct tab when given special filter', () => {
@@ -87,7 +88,7 @@ describe('Component', () => {
       const {output, props } = setup([{completed: true}], SHOW_ALL);
       const button = output.props.children[2];
       button.props.onClick();
-      expect(props.actions.clearCompleted).toHaveBeenCalledWith();
+      spy(props.actions.clearCompleted).toHaveBeenCalledWith();
     });
 
     it('should switch filter when href link click', () => {
@@ -95,7 +96,7 @@ describe('Component', () => {
       const ul = output.props.children[1];
       const li = ul.props.children[0];
       li.props.children.props.onClick();
-      expect(props.onShow).toHaveBeenCalledWith(SHOW_ALL);
+      spy(props.onShow).toHaveBeenCalledWith(SHOW_ALL);
     });
   });
 });

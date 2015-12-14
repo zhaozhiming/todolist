@@ -57,4 +57,3 @@ TodoInput.propTypes = {
 };
 
 export default TodoInput;
-
