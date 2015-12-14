@@ -1,5 +1,5 @@
-import spy from 'expect';
-import {expect} from 'chai';
+import sinon from 'sinon';
+import {expect, assert} from 'chai';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import TodoItem from '../../../src/client/components/TodoItem';
@@ -7,9 +7,9 @@ import TodoInput from '../../../src/client/components/TodoInput';
 
 function setup(givenTodo) {
   const actions = {
-    deleteTodo: spy.createSpy(),
-    updateTodo: spy.createSpy(),
-    completeTodo: spy.createSpy(),
+    deleteTodo: sinon.spy(),
+    updateTodo: sinon.spy(),
+    completeTodo: sinon.spy(),
   };
 
   const props = {
@@ -92,14 +92,14 @@ describe('components', () => {
       const result = verifySaveTodo('');
       const {renderer, props} = result;
       let update = result.update;
-      spy(props.actions.deleteTodo).toHaveBeenCalledWith(0);
+      assert(props.actions.deleteTodo.calledWith(0));
       update = renderer.getRenderOutput();
       expect(update.props.className).to.be.equal('');
     });
 
     it('should update todo when editting text change', () => {
       const {props} = verifySaveTodo('bar');
-      spy(props.actions.updateTodo).toHaveBeenCalledWith(0, 'bar');
+      assert(props.actions.updateTodo.calledWith(0, 'bar'));
     });
 
     it('should complete todo when checkbox click', () => {
@@ -107,7 +107,7 @@ describe('components', () => {
       const div = output.props.children;
       const input = div.props.children[0];
       input.props.onChange();
-      spy(props.actions.completeTodo).toHaveBeenCalledWith(0);
+      assert(props.actions.completeTodo.calledWith(0));
     });
 
     it('should delete todo when button click', () => {
@@ -115,7 +115,7 @@ describe('components', () => {
       const div = output.props.children;
       const button = div.props.children[2];
       button.props.onClick();
-      spy(props.actions.deleteTodo).toHaveBeenCalledWith(0);
+      assert(props.actions.deleteTodo.calledWith(0));
     });
   });
 });

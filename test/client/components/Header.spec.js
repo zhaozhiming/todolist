@@ -1,4 +1,4 @@
-import spy from 'expect';
+import sinon from 'sinon';
 import {expect} from 'chai';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
@@ -7,7 +7,7 @@ import TodoInput from '../../../src/client/components/TodoInput';
 
 function setup() {
   const actions = {
-    addTodo: spy.createSpy(),
+    addTodo: sinon.spy(),
   };
 
   const props = {
@@ -47,9 +47,9 @@ describe('components', () => {
       const { output, props } = setup();
       const input = output.props.children[1];
       input.props.onSave('');
-      expect(props.actions.addTodo.calls.length).to.be.equal(0);
+      expect(props.actions.addTodo.callCount).to.be.equal(0);
       input.props.onSave('Use Redux');
-      expect(props.actions.addTodo.calls.length).to.be.equal(1);
+      expect(props.actions.addTodo.callCount).to.be.equal(1);
     });
   });
 });

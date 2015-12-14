@@ -1,5 +1,5 @@
-import spy from 'expect';
-import {expect} from 'chai';
+import sinon from 'sinon';
+import {expect, assert} from 'chai';
 import React from 'react' ;
 import TestUtils from 'react-addons-test-utils';
 import Footer from '../../../src/client/components/Footer';
@@ -14,13 +14,13 @@ const FILTER_TITLES = [
 
 function setup(todos, filter) {
   const actions = {
-    clearCompleted: spy.createSpy(),
+    clearCompleted: sinon.spy(),
   };
 
   const props = {
     todos: todos,
     actions: actions,
-    onShow: spy.createSpy(),
+    onShow: sinon.spy(),
     filter: filter,
   };
 
@@ -88,7 +88,7 @@ describe('Component', () => {
       const {output, props } = setup([{completed: true}], SHOW_ALL);
       const button = output.props.children[2];
       button.props.onClick();
-      spy(props.actions.clearCompleted).toHaveBeenCalledWith();
+      assert(props.actions.clearCompleted.calledWith());
     });
 
     it('should switch filter when href link click', () => {
@@ -96,7 +96,7 @@ describe('Component', () => {
       const ul = output.props.children[1];
       const li = ul.props.children[0];
       li.props.children.props.onClick();
-      spy(props.onShow).toHaveBeenCalledWith(SHOW_ALL);
+      assert(props.onShow.calledWith(SHOW_ALL));
     });
   });
 });

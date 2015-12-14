@@ -1,4 +1,4 @@
-import spy from 'expect';
+import sinon from 'sinon';
 import {expect} from 'chai';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
@@ -9,7 +9,7 @@ import {SHOW_ACTIVE, SHOW_COMPLETED} from '../../../src/client/constants/TodoFil
 
 function setup(todos) {
   const actions = {
-    completeAll: spy.createSpy,
+    completeAll: sinon.spy(),
   };
 
   const props = {

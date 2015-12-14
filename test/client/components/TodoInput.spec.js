@@ -1,5 +1,5 @@
-import spy from 'expect';
-import {expect} from 'chai';
+import sinon from 'sinon';
+import {expect, assert} from 'chai';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import TodoInput from '../../../src/client/components/TodoInput';
@@ -10,7 +10,7 @@ function setup(givenProps = {}) {
     placeholder: 'please input',
     editing: false,
     newTodo: true,
-    onSave: spy.createSpy(),
+    onSave: sinon.spy(),
   }, givenProps);
 
   const renderer = TestUtils.createRenderer();
@@ -48,13 +48,13 @@ describe('components', () => {
     it('should save todo when call onKeyDown enter', () => {
       const { output, props } = setup();
       output.props.onKeyDown({target: {value: 'bar'}, which: 13});
-      spy(props.onSave).toHaveBeenCalledWith('bar');
+      assert(props.onSave.calledWith('bar'));
     });
 
     it('should save todo when call onBlur', () => {
       const { output, props } = setup({newTodo: false });
       output.props.onBlur({target: {value: 'bar'}});
-      spy(props.onSave).toHaveBeenCalledWith('bar');
+      assert(props.onSave.calledWith('bar'));
     });
   });
 });
